@@ -42,8 +42,16 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  function addMovieHandler(movie) {
-    console.log(movie);
+  async function addMovieHandler(movie) {
+    const response = await fetch("https://fetchmovies-udemy-default-rtdb.firebaseio.com/movies.json", {
+      method: "POST",
+      body: JSON.stringify(movie) ,
+      headers:{
+        "Content-Type": "application/json" //the headers although not required by firebase is used to describe the content that will be sent and must always be set for some other backend service that requires it
+      }
+    })
+    const data = await response.json()
+    console.log(data);
   }
 
   let content = <p>Found no movies.</p>;
