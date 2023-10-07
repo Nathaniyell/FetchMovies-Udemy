@@ -32,21 +32,16 @@ function App() {
   }
 
   let content = <p>Found no movies</p>;
+if(movies.length > 0){
+  content = <MoviesList movies={movies} />
+}
+if(error){
+  content = <p>{error}</p>;
+}
+if(isLoading){
+  content = <p>Loading...</p>;
+}
 
-  switch (content) {
-    case isLoading:
-      content = <p>Loading...</p>;
-      break;
-    case error:
-      content = <p>{error}</p>;
-      break;
-    case movies.length > 0:
-      content = <MoviesList movies={movies} />;
-      break;
-    default:
-      content = <p>Found no movies</p>;
-      break;
-  }
 
   return (
     <>
