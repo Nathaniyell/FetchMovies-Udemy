@@ -8,7 +8,7 @@ function App() {
   async function fetchMoviesHandler() {
     setIsLoading(true);
     const response = await fetch("https://swapi.dev/api/films");
-    const data = await response.json();
+     const data = await response.json();
 
     const transformedMovies = data.results.map((movie) => {
       return {
@@ -34,3 +34,4 @@ function App() {
 }
 
 export default App;
+   //fetch("", {}) the second argument allows us to pass in a javascript object to specify other options e.g extra headers,body, or change the http request method. In most cases you won't need the second argument because by default a get request is sent so you might not necessarily need to specifiy it
