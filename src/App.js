@@ -4,11 +4,11 @@ import MoviesList from "./components/MovieList";
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   async function fetchMoviesHandler() {
-    setIsLoading(true);
+    setIsLoading(true); //once the function is instantiated, the loading state becomes true
     const response = await fetch("https://swapi.dev/api/films");
-     const data = await response.json();
+    const data = await response.json();
 
     const transformedMovies = data.results.map((movie) => {
       return {
@@ -19,19 +19,22 @@ function App() {
       };
     });
     setMovies(transformedMovies);
-    setIsLoading(false);
+    setIsLoading(false); //once the movies have been loaded, the loading is set back to false
   }
 
   return (
     <>
-      <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       <section>
-       {!isLoading && <MoviesList movies={movies} />} 
-       {isLoading && <p>Loading...</p>}
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+      </section>
+      <section>
+        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+        {!isLoading && movies.length === 0 && <p>Found no movies</p>}
+        {isLoading && <p>Loading...</p>}
       </section>
     </>
   );
 }
 
 export default App;
-   //fetch("", {}) the second argument allows us to pass in a javascript object to specify other options e.g extra headers,body, or change the http request method. In most cases you won't need the second argument because by default a get request is sent so you might not necessarily need to specifiy it
+//fetch("", {}) the second argument allows us to pass in a javascript object to specify other options e.g extra headers,body, or change the http request method. In most cases you won't need the second argument because by default a get request is sent so you might not necessarily need to specifiy it
