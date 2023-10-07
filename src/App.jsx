@@ -20,16 +20,27 @@ function App() {
       }
 
       const data = await response.json();
+      const loadedMovies = []
+      for (const key in data ){ //the `key` represents the ids from the data object. and we are using the for-in loop since the response we are getting back from the server is an object as opposed to the array we had in our movies-API earlier on
+        loadedMovies.push({
+          id: key,
+          title: data[key].title, // the title of the distinct objects should be differentiated using the id which are the keys
+          openingText: data[key].openingText, 
+          releaseDate: data[key].releaseDate, 
+        })
+      }
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+      // const transformedMovies = data.results.map((movieData) => {
+       //   return {
+      //     id: movieData.episode_id,
+      //     title: movieData.title,
+      //     openingText: movieData.opening_crawl,
+      //     releaseDate: movieData.release_date,
+      //   };
+      // });
+      //setMovies(transformedMovies);
+      
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
